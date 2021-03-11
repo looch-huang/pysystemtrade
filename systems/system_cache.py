@@ -146,11 +146,15 @@ class cacheElement(object):
 
 
 class systemCache(dict):
-    def __init__(self, parent_system):
+    def __init__(self, parent_system: 'System'):
 
         super().__init__()
-        self.parent = parent_system  # so we can access the instrument list
-        self.set_caching_on()
+        self._parent = parent_system  # so we can access the instrument list
+        self._caching_on = True
+
+    @property
+    def parent(self):
+        return self._parent
 
     def set_caching_on(self):
         self._caching_on = True
@@ -170,7 +174,7 @@ class systemCache(dict):
         else:
             return "Not using cache"
 
-    def get_items_with_data(self):
+    def get_items_with_data(self) -> listOfCacheRefs:
         """
         Return items in the cache with data (or at least key values set)
         :returns: list of cacheRef objects
