@@ -44,7 +44,7 @@ print(my_system.rules.get_raw_forecast("EDOLLAR", "ewmac").tail(5))
 Define a TradingRule
 """
 
-from systems.forecasting import TradingRule
+from systems.trading_rules import TradingRule
 
 ewmac_rule = TradingRule(ewmac)
 my_rules = Rules(dict(ewmac=ewmac_rule))
@@ -109,7 +109,7 @@ from systems.forecast_combine import ForecastCombine
 combiner = ForecastCombine()
 my_system = System([fcs, my_rules, combiner], data, my_config)
 print(my_system.combForecast.get_forecast_weights("EDOLLAR").tail(5))
-print(my_system.combForecast.get_forecast_diversification_multiplier("EDOLLAR").tail(5))
+print(my_system.combForecast.get_monthly_forecast_diversification_multiplier("EDOLLAR").tail(5))
 
 # estimates:
 from systems.account import Account
@@ -127,7 +127,7 @@ my_system = System([my_account, fcs, my_rules, combiner], data, my_config)
 my_system.set_logging_level("on")
 
 print(my_system.combForecast.get_forecast_weights("US10").tail(5))
-print(my_system.combForecast.get_forecast_diversification_multiplier("US10").tail(5))
+print(my_system.combForecast.get_monthly_forecast_diversification_multiplier("US10").tail(5))
 
 # fixed:
 my_config.forecast_weights = dict(ewmac8=0.5, ewmac32=0.5)

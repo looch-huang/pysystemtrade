@@ -4,7 +4,7 @@ from syscore.accounting import accountCurve
 from systems.provided.example.rules import ewmac_forecast_with_defaults as ewmac
 from systems.forecasting import Rules
 from systems.basesystem import System
-from systems.forecasting import TradingRule
+from systems.trading_rules import TradingRule
 from sysdata.config.configdata import Config
 from systems.forecast_scale_cap import ForecastScaleCap
 from systems.forecast_combine import ForecastCombine
@@ -119,7 +119,7 @@ class TestExamples:
         combiner = ForecastCombine()
         my_system = System([fcs, my_rules, combiner], data, my_config)
         print(my_system.combForecast.get_forecast_weights("EDOLLAR").tail(5))
-        print(my_system.combForecast.get_forecast_diversification_multiplier("EDOLLAR").tail(5))
+        print(my_system.combForecast.get_monthly_forecast_diversification_multiplier("EDOLLAR").tail(5))
 
         # estimates:
         my_account = Account()
@@ -135,7 +135,7 @@ class TestExamples:
         my_system.set_logging_level("on")
 
         print(my_system.combForecast.get_forecast_weights("US10").tail(5))
-        print(my_system.combForecast.get_forecast_diversification_multiplier("US10").tail(5))
+        print(my_system.combForecast.get_monthly_forecast_diversification_multiplier("US10").tail(5))
 
         # fixed:
         my_config.forecast_weights = dict(ewmac8=0.5, ewmac32=0.5)
